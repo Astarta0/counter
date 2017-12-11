@@ -1,0 +1,71 @@
+html {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 16px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 600px;
+    border: 2px solid darkgray;
+    border-radius: 4px;
+}
+.view{
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.min-wrapper, .max-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+}
+.min-wrapper div + div {
+    color:green;
+}
+.max-wrapper div + div {
+    color:red;
+}
+.input-value{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.management-panel{
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.btn-wrp{
+    background-color: #e4eaf6;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid darkgray;
+    width: 150px ;
+    height: 50px;
+}
+
+.pressed{
+    background: #e4eaf6;
+    background: -webkit-linear-gradient(60deg, darkgray 34%, #e4eaf6 80%);
+    background: -o-linear-gradient(60deg, darkgray 34%, #e4eaf6 80%);
+    background: -ms-linear-gradient(60deg, darkgray 34%, #e4eaf6 80%);
+    background: linear-gradient(60deg, darkgray 34%, #e4eaf6 80%);
+}
