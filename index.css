@@ -10,13 +10,15 @@ body {
     /*margin: 0;*/
 }
 
-.wrapper{
+.counter-wrapper{
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 600px;
     border: 1px solid grey;
     border-radius: 4px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
 }
 .view{
     height: 150px;
@@ -39,8 +41,10 @@ body {
 }
 
 .input-value{
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .management-panel{
@@ -64,4 +68,21 @@ body {
 
 .pressed{
     background: #FAFAFA;
+}
+
+.toolbar{
+    line-height: 22px;
+    width: 600px;
+    padding: 12px 0;
+}
+.add-counter{
+    margin: 5px;
+    display: inline-block;
+    border: 1px solid gray;
+}
+
+.counters-container{
+    display: flex;
+    flex-direction: column;
+
 }
