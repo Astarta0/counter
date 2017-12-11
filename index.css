@@ -7,7 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    margin: 0;
+    /*margin: 0;*/
 }
 
 .wrapper{
@@ -15,11 +15,12 @@ body {
     flex-direction: column;
     justify-content: center;
     width: 600px;
-    border: 2px solid darkgray;
+    border: 1px solid grey;
     border-radius: 4px;
 }
 .view{
     height: 150px;
+    border-bottom: 1px solid gray;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -33,12 +34,10 @@ body {
     align-items: center;
     width: 150px;
 }
-.min-wrapper div + div {
-    color:green;
+.title{
+    color: green;
 }
-.max-wrapper div + div {
-    color:red;
-}
+
 .input-value{
     font-size: 30px;
     font-weight: bold;
@@ -52,20 +51,17 @@ body {
     align-items: center;
 
 }
+.btn-wrp + .btn-wrp{
+    border-left: 1px solid gray;
+}
 .btn-wrp{
-    background-color: #e4eaf6;
     display:flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid darkgray;
     width: 150px ;
     height: 50px;
 }
 
 .pressed{
-    background: #e4eaf6;
-    background: -webkit-linear-gradient(60deg, darkgray 34%, #e4eaf6 80%);
-    background: -o-linear-gradient(60deg, darkgray 34%, #e4eaf6 80%);
-    background: -ms-linear-gradient(60deg, darkgray 34%, #e4eaf6 80%);
-    background: linear-gradient(60deg, darkgray 34%, #e4eaf6 80%);
+    background: #FAFAFA;
 }
