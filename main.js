@@ -12,20 +12,45 @@ $( document ).ready(function() {
             this.randomNumber = this.getRandomInRange(this.min, this.max);
             this.randomString = writtenNumber(this.randomNumber);
             this.renderInitialData();
-
         }
-
 
         //methods
         renderInitialData(){
-            inputCountersArea.append(this.counterTemplate);
-            var inputNumberArea = $(".input-value");
-            var inputMinArea = $(".min-value");
-            var inputMaxArea = $(".max-value");
-            inputNumberArea.text(this.randomString);
-            inputMinArea.text(this.min);
-            inputMaxArea.text(this.max);
-            debugger;
+            this.inputCountersArea = $(".counters-container");
+            this.counter = $(this.counterTemplate);
+            this.inputCountersArea.append(this.counter);
+
+            this.inputNumberArea = this.counter.find(".input-value");
+            this.inputMinArea = this.counter.find(".min-value");
+            this.inputMaxArea = this.counter.find(".max-value");
+
+            this.inputNumberArea.text(this.randomString);
+            this.inputMinArea.text(this.min);
+            this.inputMaxArea.text(this.max);
+
+            this.reset = this.counter.find( ".reset" );
+            this.dec = this.counter.find( ".dec" );
+            this.inc = this.counter.find( ".inc" );
+            this.random = this.counter.find( ".random" );
+
+            const self = this;
+            //handlers definition
+            this.reset.click(function() {
+                self.resetData(self.reset);
+            });
+
+            this.dec.click(function () {
+                self.decrementData(self.dec);
+            });
+
+            this.inc.click(function () {
+               self.incrementData(self.inc);
+            });
+
+            this.random.click(function () {
+                self.setRandomData(self.random);
+            });
+
         }
 
         getRandomInRange(min, max) {
@@ -33,71 +58,50 @@ $( document ).ready(function() {
         }
 
         //handlers
+        resetData(btn) {
+            addStyleForClickedButtons(btn);
+            this.randomNumber = this.min;
+            this.setValue(this.randomNumber);
+        }
 
+        decrementData(btn){
+            addStyleForClickedButtons(btn);
+            if(this.randomNumber > this.min){
+                this.setValue(--this.randomNumber);
+            }
+        }
+
+        incrementData(btn){
+            addStyleForClickedButtons(btn);
+            if(this.randomNumber < this.max){
+                this.setValue(++this.randomNumber);
+            }
+        }
+
+        setRandomData(btn){
+            addStyleForClickedButtons(btn);
+            this.randomNumber = this.getRandomInRange(this.min, this.max);
+            this.setValue(this.randomNumber);
+        }
+
+        setValue(number) {
+            this.inputNumberArea.text(writtenNumber(number));
+        }
 
     };
-
 
     const pressedClass = "pressed";
     const millisecondsToWait = 500;
     const min = 10;
     const max = 50;
 
-    // var inputNumberArea = $(".input-value");
-    // var inputMinArea = $(".min-value");
-    // var inputMaxArea = $(".max-value");
-    var inputCountersArea = $(".counters-container");
     // buttons
-    var reset = $( ".reset" );
-    var dec = $( ".dec" );
-    var inc = $( ".inc" );
-    var random = $( ".random" );
     var addCounter = $(".add-counter");
-
-    var randomNumber = getRandomInRange(min, max);
-    var randomString = writtenNumber(randomNumber);
-
-    // inputNumberArea.text(randomString);
-    // inputMinArea.text(min);
-    // inputMaxArea.text(max);
-
 
     //handlers
     addCounter.click(function () {
         var counter = new Counter(min, max, millisecondsToWait, counterTemplate);
-        console.log(counter);
-
-
     });
-
-    reset.click(function () {
-        addStyleForClickedButtons(reset);
-        setValue(min);
-    });
-
-    dec.click(function () {
-        addStyleForClickedButtons(dec);
-        if(randomNumber > min){
-            setValue(--randomNumber);
-        }
-    });
-
-    inc.click(function () {
-        addStyleForClickedButtons(inc);
-        if(randomNumber < max){
-            setValue(++randomNumber);
-        }
-    });
-
-    random.click(function () {
-        addStyleForClickedButtons(random);
-        randomNumber = getRandomInRange(min, max);
-        setValue(randomNumber);
-    });
-
-    function setValue(number) {
-        inputNumberArea.text(writtenNumber(number));
-    }
 
     function addStyleForClickedButtons(queryLocator) {
         queryLocator.addClass(pressedClass);
@@ -105,11 +109,6 @@ $( document ).ready(function() {
             queryLocator.removeClass(pressedClass);
         }, millisecondsToWait);
     }
-
-    function getRandomInRange(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
 
     var counterTemplate = `
         <div class="counter-wrapper">
