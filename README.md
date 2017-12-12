@@ -1,5 +1,12 @@
 # Counter
 
+Other
+-------------
+- [ ] JSDoc
+- [ ] Underscore.js
+- [ ] Underscore templates
+- [ ] add .gitignore
+
 Counter v1.0
 --------------
 - [x] Кликабельный прототип счетчика
