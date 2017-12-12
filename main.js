@@ -1,7 +1,7 @@
-$( document ).ready(function() {
+$(function() {
     
     // 1) underscore.js instead of getRandomInRange
-    class Counter{
+    class Counter {
         constructor(min, max, millisecondsToWait, counterTemplate) {
             this.min = min;
             this.max = max;
@@ -15,7 +15,7 @@ $( document ).ready(function() {
         }
 
         //methods
-        renderInitialData(){
+        renderInitialData() {
             this.inputCountersArea = $(".counters-container");
             this.counter = $(this.counterTemplate);
             this.inputCountersArea.append(this.counter);
@@ -39,25 +39,23 @@ $( document ).ready(function() {
                 self.resetData(self.reset);
             });
 
-            this.dec.click(function () {
+            this.dec.click(function() {
                 self.decrementData(self.dec);
             });
 
-            this.inc.click(function () {
+            this.inc.click(function() {
                self.incrementData(self.inc);
             });
 
             this.random.click(function () {
                 self.setRandomData(self.random);
             });
-
         }
 
         getRandomInRange(min, max) {
             return Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
         }
 
-        //handlers
         resetData(btn) {
             addStyleForClickedButtons(btn);
             this.randomNumber = this.min;
@@ -88,7 +86,7 @@ $( document ).ready(function() {
             this.inputNumberArea.text(writtenNumber(number));
         }
 
-    };
+    }
 
     const pressedClass = "pressed";
     const millisecondsToWait = 500;
@@ -96,13 +94,16 @@ $( document ).ready(function() {
     const max = 50;
 
     // buttons
-    var addCounter = $(".add-counter");
+    var $addCounter = $(".add-counter");
 
     //handlers
-    addCounter.click(function () {
+    $addCounter.click(function () {
         var counter = new Counter(min, max, millisecondsToWait, counterTemplate);
     });
 
+    /**
+     * @param {jQuery} queryLocator
+     */
     function addStyleForClickedButtons(queryLocator) {
         queryLocator.addClass(pressedClass);
         setTimeout(function () {
