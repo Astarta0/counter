@@ -1,4 +1,5 @@
 html {
+    color: rgba(0, 0, 0, 0.54);
     font-family: 'Roboto', Arial, sans-serif;
     font-size: 16px;
 }
@@ -14,15 +15,16 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 600px;
-    border: 1px solid grey;
+    width: 368px;
+    height: 134px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     margin-bottom: 10px;
     flex-shrink: 0;
 }
 .view{
-    height: 150px;
-    border-bottom: 1px solid gray;
+    height: 97px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -30,11 +32,12 @@ body {
 }
 
 .min-wrapper, .max-wrapper{
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 150px;
+    width: 95px;
 }
 .title{
     color: green;
@@ -45,10 +48,12 @@ body {
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: black;
 }
 
 .management-panel{
-    height: 50px;
+    width: 368px;
+    height: 36px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -56,14 +61,14 @@ body {
 
 }
 .btn-wrp + .btn-wrp{
-    border-left: 1px solid gray;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
 }
 .btn-wrp{
     display:flex;
     align-items: center;
     justify-content: center;
     width: 150px ;
-    height: 50px;
+    height: 36px;
 }
 
 .pressed{
@@ -72,17 +77,27 @@ body {
 
 .toolbar{
     line-height: 22px;
-    width: 600px;
+    width: 368px;
     padding: 12px 0;
 }
 .add-counter{
-    margin: 5px;
+    padding: 2px 4px;
+    height: 36px;
+    line-height: 36px;
     display: inline-block;
-    border: 1px solid gray;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
 }
 
 .counters-container{
     display: flex;
     flex-direction: column;
 
+}
+
+.main-control-panel{
+    margin-bottom: 5px;
+    width:368px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
 }
