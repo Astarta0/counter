@@ -1,5 +1,6 @@
-class Counter {
+class Counter extends EventEmitter2{
     constructor(min, max, millisecondsToWait, counterTemplate) {
+        super();
         this.min = min;
         this.max = max;
         this.millisecondsToWait = millisecondsToWait;
