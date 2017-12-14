@@ -25,8 +25,7 @@ $(function() {
     });
 
     function toEmitCommonEvent(event) {
-        var self = controlPanel.returnThis();
-        controlPanel.emitEventFromControlPanel.call(self, event);
+        controlPanel.emitEventFromControlPanel(event);
     }
 
     /**

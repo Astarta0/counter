@@ -7,12 +7,7 @@ class ControlPanel extends EventEmitter2{
         this.$randomAllBtn = $(".main-control-panel .random");
     }
 
-    returnThis(){
-        return this;
-    }
-
     emitEventFromControlPanel(event){
-            var res = this.emit(event.data.eventName);
-            console.log(res);
+        this.emit(event.data.eventName, event.data.eventName);
     }
 }

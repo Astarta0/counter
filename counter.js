@@ -5,27 +5,36 @@ class Counter extends EventEmitter2{
         this.max = max;
         this.millisecondsToWait = millisecondsToWait;
         this.pressedClass = "pressed";
+        this.controlPanel = controlPanel;
 
         this.counterTemplate = counterTemplate;
         this.randomNumber = this.getRandomInRange(this.min, this.max);
         this.randomString = writtenNumber(this.randomNumber);
         this.renderInitialData();
-        console.log(controlPanel);
-        this.commonEventsHandler();
-        debugger;
+
+        this.controlPanel.on("clickResetAll", this.commonEventsHandler.bind(this));
+        this.controlPanel.on("clickDecrementAll", this.commonEventsHandler.bind(this));
+        this.controlPanel.on("clickIncrementAll", this.commonEventsHandler.bind(this));
+        this.controlPanel.on("clickRandomAll", this.commonEventsHandler.bind(this));
     }
 
     //methods
-    commonEventsHandler(){
-        console.log(this);
-        debugger;
-        controlePanel.on("clickResetAll", function () {
-            console.log("handler on");
-
-        });
+    commonEventsHandler(eventName){
+        switch (eventName){
+            case "clickResetAll":
+                this.resetData(this.$reset);
+                break;
+            case "clickDecrementAll":
+                this.decrementData(this.$dec);
+                break;
+            case "clickIncrementAll":
+                this.incrementData(this.$inc);
+                break;
+            case "clickRandomAll":
+                this.setRandomData(this.$random);
+                break;
+        }
     }
-
-
 
     renderInitialData() {
         this.$inputCountersArea = $(".counters-container");
