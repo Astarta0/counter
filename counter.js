@@ -1,5 +1,5 @@
 class Counter extends EventEmitter2{
-    constructor(min, max, millisecondsToWait, counterTemplate) {
+    constructor(min, max, millisecondsToWait, counterTemplate, controlPanel) {
         super();
         this.min = min;
         this.max = max;
@@ -10,9 +10,23 @@ class Counter extends EventEmitter2{
         this.randomNumber = this.getRandomInRange(this.min, this.max);
         this.randomString = writtenNumber(this.randomNumber);
         this.renderInitialData();
+        console.log(controlPanel);
+        this.commonEventsHandler();
+        debugger;
     }
 
     //methods
+    commonEventsHandler(){
+        console.log(this);
+        debugger;
+        controlePanel.on("clickResetAll", function () {
+            console.log("handler on");
+
+        });
+    }
+
+
+
     renderInitialData() {
         this.$inputCountersArea = $(".counters-container");
         this.counter = $(this.counterTemplate);
