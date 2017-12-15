@@ -4,15 +4,18 @@ $(function() {
     const millisecondsToWait = 500;
     const min = 10;
     const max = 50;
+    var countersArray = [];
 
     var controlPanel = new ControlPanel();
-
+    var statPanel = new StatPanel();
     // buttons
     var $addCounter = $(".add-counter");
 
     // handlers
     $addCounter.click(function () {
         var counter = new Counter(min, max, millisecondsToWait, counterTemplate, controlPanel);
+        countersArray.push(counter);
+        controlPanel.emit("newCounterWasAdded");
     });
 
     /**
