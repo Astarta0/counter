@@ -10,7 +10,7 @@ $(function() {
     // buttons
     var $addCounter = $(".add-counter");
 
-    //handlers
+    // handlers
     $addCounter.click(function () {
         var counter = new Counter(min, max, millisecondsToWait, counterTemplate, controlPanel);
     });

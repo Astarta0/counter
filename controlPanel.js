@@ -13,18 +13,22 @@ class ControlPanel extends EventEmitter2{
     }
 
     emitResetAllCounts(){
+        console.log("Control Panel: reset all click");
         addStyleForClickedButtons(this.$resetAllBtn);
         this.emit("clickResetAll");
     }
     emitDecrementAllCounts(){
+        console.log("Control Panel: decrement all click");
         addStyleForClickedButtons(this.$decrementAllBtn);
         this.emit("clickDecrementAll");
     }
     emitIncrementAllCounts(){
+        console.log("Control Panel: increment all click");
         addStyleForClickedButtons(this.$incrementAllBtn);
         this.emit("clickIncrementAll");
     }
     emitRandomAllCounts(){
+        console.log("Control Panel: random all click");
         addStyleForClickedButtons(this.$randomAllBtn);
         this.emit("clickRandomAll");
     }
