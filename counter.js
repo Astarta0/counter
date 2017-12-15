@@ -12,29 +12,13 @@ class Counter extends EventEmitter2{
         this.randomString = writtenNumber(this.randomNumber);
         this.renderInitialData();
 
-        this.controlPanel.on("clickResetAll", this.clickResetAllHandler.bind(this));
-        this.controlPanel.on("clickDecrementAll", this.clickDecrementAllHandler.bind(this));
-        this.controlPanel.on("clickIncrementAll", this.clickIncrementAllHandler.bind(this));
-        this.controlPanel.on("clickRandomAll", this.clickRandomAllHandler.bind(this));
+        this.controlPanel.on("clickResetAll", this.resetData.bind(this, controlPanel.$resetAllBtn));
+        this.controlPanel.on("clickDecrementAll", this.decrementData.bind(this, controlPanel.$decrementAllBtn));
+        this.controlPanel.on("clickIncrementAll", this.incrementData.bind(this, controlPanel.$incrementAllBtn));
+        this.controlPanel.on("clickRandomAll", this.setRandomData.bind(this, controlPanel.$randomAllBtn));
     }
 
     //methods
-    clickResetAllHandler(){
-        this.resetData(this.controlPanel.$resetAllBtn);
-    }
-
-    clickDecrementAllHandler(){
-        this.decrementData(this.controlPanel.$decrementAllBtn);
-    }
-
-    clickIncrementAllHandler(){
-        this.incrementData(this.controlPanel.$incrementAllBtn);
-    }
-
-    clickRandomAllHandler(){
-        this.setRandomData(this.controlPanel.$randomAllBtn);
-    }
-
     renderInitialData() {
         this.$inputCountersArea = $(".counters-container");
         this.counter = $(this.counterTemplate);
@@ -77,12 +61,14 @@ class Counter extends EventEmitter2{
     }
 
     resetData(btn) {
+        console.log( "btn = ", btn, " action reset");
         addStyleForClickedButtons(btn);
         this.randomNumber = this.min;
         this.setValue(this.randomNumber);
     }
 
     decrementData(btn){
+        console.log( "btn = ", btn, " action decrement");
         addStyleForClickedButtons(btn);
         if(this.randomNumber > this.min){
             this.setValue(--this.randomNumber);
@@ -90,6 +76,7 @@ class Counter extends EventEmitter2{
     }
 
     incrementData(btn){
+        console.log( "btn = ", btn, " action increment");
         addStyleForClickedButtons(btn);
         if(this.randomNumber < this.max){
             this.setValue(++this.randomNumber);
@@ -97,6 +84,7 @@ class Counter extends EventEmitter2{
     }
 
     setRandomData(btn){
+        console.log( "btn = ", btn, " action set random");
         addStyleForClickedButtons(btn);
         this.randomNumber = this.getRandomInRange(this.min, this.max);
         this.setValue(this.randomNumber);

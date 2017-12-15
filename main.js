@@ -10,36 +10,14 @@ $(function() {
     // buttons
     var $addCounter = $(".add-counter");
 
-    controlPanel.$resetAllBtn.click(toEmitResetAllEvent);
-    controlPanel.$decrementAllBtn.click(toEmitDecrementAllEvent);
-    controlPanel.$incrementAllBtn.click(toEmitIncrementAllEvent);
-    controlPanel.$randomAllBtn.click(toEmitRundomAllEvent);
-
     //handlers
     $addCounter.click(function () {
         var counter = new Counter(min, max, millisecondsToWait, counterTemplate, controlPanel);
     });
 
-    function toEmitResetAllEvent(){
-        controlPanel.emitResetAllCounts();
-        }
-
-    function toEmitDecrementAllEvent() {
-        controlPanel.emitDecrementAllCounts();
-    }
-
-    function toEmitIncrementAllEvent() {
-        controlPanel.emitIncrementAllCounts();
-    }
-
-    function toEmitRundomAllEvent() {
-        controlPanel.emitRandomAllCounts();
-    }
-
-
     /**
      * @param {jQuery} queryLocator
-     */
+    **/
     window.addStyleForClickedButtons = addStyleForClickedButtons;
     function addStyleForClickedButtons(queryLocator) {
         queryLocator.addClass(pressedClass);
