@@ -102,3 +102,26 @@ body {
     border-radius: 4px;
 }
 
+.stat-panel{
+    display: flex;
+    flex-wrap: wrap;
+    height: 134px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    width: 368px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    flex-shrink: 0;
+}
+.summary-stat, .average-stat, .min-stat, .max-stat{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.summary-stat-header, .min-stat-header, .average-stat-header, .max-stat-header{
+    font-weight: bold;
+    font-size: 18px;
+}
