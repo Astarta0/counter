@@ -12,28 +12,27 @@ class Counter extends EventEmitter2{
         this.randomString = writtenNumber(this.randomNumber);
         this.renderInitialData();
 
-        this.controlPanel.on("clickResetAll", this.commonEventsHandler.bind(this));
-        this.controlPanel.on("clickDecrementAll", this.commonEventsHandler.bind(this));
-        this.controlPanel.on("clickIncrementAll", this.commonEventsHandler.bind(this));
-        this.controlPanel.on("clickRandomAll", this.commonEventsHandler.bind(this));
+        this.controlPanel.on("clickResetAll", this.clickResetAllHandler.bind(this));
+        this.controlPanel.on("clickDecrementAll", this.clickDecrementAllHandler.bind(this));
+        this.controlPanel.on("clickIncrementAll", this.clickIncrementAllHandler.bind(this));
+        this.controlPanel.on("clickRandomAll", this.clickRandomAllHandler.bind(this));
     }
 
     //methods
-    commonEventsHandler(eventName){
-        switch (eventName){
-            case "clickResetAll":
-                this.resetData(this.$reset);
-                break;
-            case "clickDecrementAll":
-                this.decrementData(this.$dec);
-                break;
-            case "clickIncrementAll":
-                this.incrementData(this.$inc);
-                break;
-            case "clickRandomAll":
-                this.setRandomData(this.$random);
-                break;
-        }
+    clickResetAllHandler(){
+        this.resetData(this.controlPanel.$resetAllBtn);
+    }
+
+    clickDecrementAllHandler(){
+        this.decrementData(this.controlPanel.$decrementAllBtn);
+    }
+
+    clickIncrementAllHandler(){
+        this.incrementData(this.controlPanel.$incrementAllBtn);
+    }
+
+    clickRandomAllHandler(){
+        this.setRandomData(this.controlPanel.$randomAllBtn);
     }
 
     renderInitialData() {

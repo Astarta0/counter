@@ -9,24 +9,33 @@ $(function() {
 
     // buttons
     var $addCounter = $(".add-counter");
-    var $resetAllBtn = $(".main-control-panel .reset");
-    var $decrementAllBtn = $(".main-control-panel .dec");
-    var $incrementAllBtn = $(".main-control-panel .inc");
-    var $randomAllBtn = $(".main-control-panel .random");
 
-    $resetAllBtn.click({$btn: $resetAllBtn, eventName: 'clickResetAll'}, toEmitCommonEvent);
-    $decrementAllBtn.click({$btn: $decrementAllBtn, eventName: 'clickDecrementAll'}, toEmitCommonEvent);
-    $incrementAllBtn.click({$btn: $incrementAllBtn, eventName: 'clickIncrementAll'}, toEmitCommonEvent);
-    $randomAllBtn.click({$btn: $randomAllBtn, eventName: 'clickRandomAll'}, toEmitCommonEvent);
+    controlPanel.$resetAllBtn.click(toEmitResetAllEvent);
+    controlPanel.$decrementAllBtn.click(toEmitDecrementAllEvent);
+    controlPanel.$incrementAllBtn.click(toEmitIncrementAllEvent);
+    controlPanel.$randomAllBtn.click(toEmitRundomAllEvent);
 
     //handlers
     $addCounter.click(function () {
         var counter = new Counter(min, max, millisecondsToWait, counterTemplate, controlPanel);
     });
 
-    function toEmitCommonEvent(event) {
-        controlPanel.emitEventFromControlPanel(event);
+    function toEmitResetAllEvent(){
+        controlPanel.emitResetAllCounts();
+        }
+
+    function toEmitDecrementAllEvent() {
+        controlPanel.emitDecrementAllCounts();
     }
+
+    function toEmitIncrementAllEvent() {
+        controlPanel.emitIncrementAllCounts();
+    }
+
+    function toEmitRundomAllEvent() {
+        controlPanel.emitRandomAllCounts();
+    }
+
 
     /**
      * @param {jQuery} queryLocator
