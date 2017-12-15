@@ -40,18 +40,22 @@ class Counter extends EventEmitter2{
         const self = this;
         //handlers definition
         this.$reset.click(function() {
+            addStyleForClickedButtons(self.$reset);
             self.resetData(self.$reset);
         });
 
         this.$dec.click(function() {
+            addStyleForClickedButtons(self.$dec);
             self.decrementData(self.$dec);
         });
 
         this.$inc.click(function() {
+            addStyleForClickedButtons(self.$inc);
             self.incrementData(self.$inc);
         });
 
         this.$random.click(function () {
+            addStyleForClickedButtons(self.$random);
             self.setRandomData(self.$random);
         });
     }
@@ -62,14 +66,12 @@ class Counter extends EventEmitter2{
 
     resetData(btn) {
         console.log( "btn = ", btn, " action reset");
-        addStyleForClickedButtons(btn);
         this.randomNumber = this.min;
         this.setValue(this.randomNumber);
     }
 
     decrementData(btn){
         console.log( "btn = ", btn, " action decrement");
-        addStyleForClickedButtons(btn);
         if(this.randomNumber > this.min){
             this.setValue(--this.randomNumber);
         }
@@ -77,7 +79,6 @@ class Counter extends EventEmitter2{
 
     incrementData(btn){
         console.log( "btn = ", btn, " action increment");
-        addStyleForClickedButtons(btn);
         if(this.randomNumber < this.max){
             this.setValue(++this.randomNumber);
         }
@@ -85,7 +86,6 @@ class Counter extends EventEmitter2{
 
     setRandomData(btn){
         console.log( "btn = ", btn, " action set random");
-        addStyleForClickedButtons(btn);
         this.randomNumber = this.getRandomInRange(this.min, this.max);
         this.setValue(this.randomNumber);
     }
@@ -93,5 +93,4 @@ class Counter extends EventEmitter2{
     setValue(number) {
         this.$inputNumberArea.text(writtenNumber(number));
     }
-
 }

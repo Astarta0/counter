@@ -13,15 +13,19 @@ class ControlPanel extends EventEmitter2{
     }
 
     emitResetAllCounts(){
+        addStyleForClickedButtons(this.$resetAllBtn);
         this.emit("clickResetAll");
     }
     emitDecrementAllCounts(){
+        addStyleForClickedButtons(this.$decrementAllBtn);
         this.emit("clickDecrementAll");
     }
     emitIncrementAllCounts(){
+        addStyleForClickedButtons(this.$incrementAllBtn);
         this.emit("clickIncrementAll");
     }
     emitRandomAllCounts(){
+        addStyleForClickedButtons(this.$randomAllBtn);
         this.emit("clickRandomAll");
     }
 }
