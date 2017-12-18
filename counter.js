@@ -41,28 +41,30 @@ class Counter extends EventEmitter2{
         //handlers definition
         this.$reset.click(function() {
             console.log("Counter: reset click");
-            this.emit("Counter was changed");
+            debugger;
+            self.emit("Counter was changed");
+            debugger;
             addStyleForClickedButtons(self.$reset);
             self.resetData(self.$reset);
         });
 
         this.$dec.click(function() {
             console.log("Counter: decrement click");
-            this.emit("Counter was changed");
+            self.emit("Counter was changed");
             addStyleForClickedButtons(self.$dec);
             self.decrementData(self.$dec);
         });
 
         this.$inc.click(function() {
             console.log("Counter: increment click");
-            this.emit("Counter was changed");
+            self.emit("Counter was changed");
             addStyleForClickedButtons(self.$inc);
             self.incrementData(self.$inc);
         });
 
         this.$random.click(function () {
             console.log("Counter: random click");
-            this.emit("Counter was changed");
+            self.emit("Counter was changed");
             addStyleForClickedButtons(self.$random);
             self.setRandomData(self.$random);
         });

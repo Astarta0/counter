@@ -15,6 +15,7 @@ $(function() {
     $addCounter.click(function () {
         var counter = new Counter(min, max, millisecondsToWait, counterTemplate, controlPanel);
         countersArray.push(counter);
+        // тут теперь ошибка
         statPanel.emit("newCounterWasAdded", countersArray);
     });
 

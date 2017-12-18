@@ -3,7 +3,7 @@ class StatPanel extends EventEmitter2{
         super();
         this.countersArray = countersArray;
 
-        this.on("newCounterWasAdded", this.updateAllStatistic);
+        this.on("newCounterWasAdded", this.addCountersHandler);
         this.$summaryValue = $(".summary-stat-value");
         this.$averageValue = $(".average-stat-value");
         this.$minValue = $(".min-stat-value");
@@ -13,8 +13,14 @@ class StatPanel extends EventEmitter2{
         this.commonAVG = 0;
         this.commonSUM = 0;
     }
+    addCountersHandler(countersArray){
+        debugger;
+        // не работает при эмите события от каунтера
+        countersArray[countersArray.length-1].on("Counter was changed", this.updateAllStatistic(countersArray));
+    }
 
     updateAllStatistic(countersArray){
+        debugger;
         countersArray.forEach(this.getCommonMinimum, this);
         countersArray.forEach(this.getCommonMaximum, this);
         countersArray.forEach(this.getCommonSummary, this);
