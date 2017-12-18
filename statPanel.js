@@ -20,7 +20,6 @@ class StatPanel extends EventEmitter2 {
     }
 
     updateStatisticAfterCountWasChanged(){
-        debugger;
         this.getMaxFromCurrentNumbersOfCounters();
         this.getMinFromCurrentNumbersOfCounters();
         this.getSUMFromCurrentNumbersOfCounters();
@@ -29,7 +28,7 @@ class StatPanel extends EventEmitter2 {
     }
 
     updateAllStatistic(){
-        this.countersArray.forEach(() => this.getCommonMinimum());
+        this.countersArray.forEach((counter) => this.getCommonMinimum(counter));
         this.countersArray.forEach(this.getCommonMaximum, this);
         this.commonSUM = 0;
         this.countersArray.forEach(this.getCommonSummary, this);
@@ -66,15 +65,15 @@ class StatPanel extends EventEmitter2 {
         this.currentNumbersArray = [];
     }
 
-    getCommonMinimum(arrElement){
-        if ((arrElement.currentNumber < this.commonMin) || this.commonMin === 0){
-            this.commonMin = arrElement.currentNumber;
+    getCommonMinimum(counter){
+        if ((counter.currentNumber < this.commonMin) || this.commonMin === 0){
+            this.commonMin = counter.currentNumber;
         }
     }
 
-    getCommonMaximum(arrElement){
-        if ((arrElement.currentNumber > this.commonMax) || this.commonMax === 0){
-            this.commonMax = arrElement.currentNumber;
+    getCommonMaximum(counter){
+        if ((counter.currentNumber > this.commonMax) || this.commonMax === 0){
+            this.commonMax = counter.currentNumber;
         }
     }
 
