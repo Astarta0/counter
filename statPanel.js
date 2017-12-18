@@ -13,31 +13,26 @@ class StatPanel extends EventEmitter2{
         this.commonAVG = 0;
         this.commonSUM = 0;
     }
+
     addCountersHandler(){
         this.countersArray[this.countersArray.length-1].on("Counter was changed", this.updateStatisticAfterCountWasChanged.bind(this));
         this.updateAllStatistic();
     }
 
-
     updateStatisticAfterCountWasChanged(){
-        console.log(this);
-        debugger;
         this.getMaxFromCurrentNumbersOfCounters.apply(this);
         this.getMinFromCurrentNumbersOfCounters.apply(this);
         this.getSUMFromCurrentNumbersOfCounters.apply(this);
         this.getAVGFromCurrentNumbersOfCounters.apply(this);
-
         this.setValues();
     }
 
     updateAllStatistic(){
-        debugger;
         this.countersArray.forEach(this.getCommonMinimum, this);
         this.countersArray.forEach(this.getCommonMaximum, this);
         this.commonSUM = 0;
         this.countersArray.forEach(this.getCommonSummary, this);
         this.commonAVG = parseFloat((this.commonSUM /  this.countersArray.length).toFixed());
-
         this.setValues();
     }
 

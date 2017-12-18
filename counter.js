@@ -43,28 +43,24 @@ class Counter extends EventEmitter2{
             console.log("Counter: reset click");
             addStyleForClickedButtons(self.$reset);
             self.resetData(self.$reset);
-            self.emit("Counter was changed");
         });
 
         this.$dec.click(function() {
             console.log("Counter: decrement click");
             addStyleForClickedButtons(self.$dec);
             self.decrementData(self.$dec);
-            self.emit("Counter was changed");
         });
 
         this.$inc.click(function() {
             console.log("Counter: increment click");
             addStyleForClickedButtons(self.$inc);
             self.incrementData(self.$inc);
-            self.emit("Counter was changed");
         });
 
         this.$random.click(function () {
             console.log("Counter: random click");
             addStyleForClickedButtons(self.$random);
             self.setRandomData(self.$random);
-            self.emit("Counter was changed");
         });
     }
 
@@ -73,26 +69,29 @@ class Counter extends EventEmitter2{
     }
 
     resetData(btn) {
-        debugger;
         this.currentNumber = this.min;
         this.setValue(this.currentNumber);
+        this.emit("Counter was changed");
     }
 
     decrementData(btn){
         if(this.currentNumber > this.min){
             this.setValue(this.currentNumber = --this.currentNumber);
         }
+        this.emit("Counter was changed");
     }
 
     incrementData(btn){
         if(this.currentNumber < this.max){
             this.setValue(this.currentNumber = ++this.currentNumber);
         }
+        this.emit("Counter was changed");
     }
 
     setRandomData(btn){
         this.currentNumber = this.getRandomInRange(this.min, this.max);
         this.setValue(this.currentNumber);
+        this.emit("Counter was changed");
     }
 
     setValue(number) {
