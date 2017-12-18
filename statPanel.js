@@ -2,7 +2,7 @@ class StatPanel extends EventEmitter2{
     constructor(countersArray){
         super();
         this.countersArray = countersArray;
-
+        this.currentNumbersArray = [];
         this.on("newCounterWasAdded", this.addCountersHandler);
         this.$summaryValue = $(".summary-stat-value");
         this.$averageValue = $(".average-stat-value");
@@ -13,23 +13,61 @@ class StatPanel extends EventEmitter2{
         this.commonAVG = 0;
         this.commonSUM = 0;
     }
-    addCountersHandler(countersArray){
-        debugger;
-        // не работает при эмите события от каунтера
-        countersArray[countersArray.length-1].on("Counter was changed", this.updateAllStatistic(countersArray));
+    addCountersHandler(){
+        this.countersArray[this.countersArray.length-1].on("Counter was changed", this.updateStatisticAfterCountWasChanged.bind(this));
+        this.updateAllStatistic();
     }
 
-    updateAllStatistic(countersArray){
-        debugger;
-        countersArray.forEach(this.getCommonMinimum, this);
-        countersArray.forEach(this.getCommonMaximum, this);
-        countersArray.forEach(this.getCommonSummary, this);
-        this.commonAVG = parseFloat((this.commonSUM / countersArray.length).toFixed());
 
-        this.$summaryValue.text(this.commonSUM);
-        this.$averageValue.text(this.commonAVG);
-        this.$minValue.text(this.commonMin);
-        this.$maxValue.text(this.commonMax);
+    updateStatisticAfterCountWasChanged(){
+        console.log(this);
+        debugger;
+        this.getMaxFromCurrentNumbersOfCounters.apply(this);
+        this.getMinFromCurrentNumbersOfCounters.apply(this);
+        this.getSUMFromCurrentNumbersOfCounters.apply(this);
+        this.getAVGFromCurrentNumbersOfCounters.apply(this);
+
+        this.setValues();
+    }
+
+    updateAllStatistic(){
+        debugger;
+        this.countersArray.forEach(this.getCommonMinimum, this);
+        this.countersArray.forEach(this.getCommonMaximum, this);
+        this.commonSUM = 0;
+        this.countersArray.forEach(this.getCommonSummary, this);
+        this.commonAVG = parseFloat((this.commonSUM /  this.countersArray.length).toFixed());
+
+        this.setValues();
+    }
+
+    getSUMFromCurrentNumbersOfCounters(){
+        this.commonSUM = 0;
+        for (var i=0; i <= (this.countersArray.length)-1; i++){
+            this.commonSUM = this.commonSUM + this.countersArray[i].currentNumber;
+        }
+    }
+
+    getAVGFromCurrentNumbersOfCounters(){
+        for (var i=0; i <= (this.countersArray.length)-1; i++){
+            this.commonAVG = parseFloat((this.commonSUM /  this.countersArray.length).toFixed());
+        }
+    }
+
+    getMaxFromCurrentNumbersOfCounters(){
+        for (var i=0; i <= (this.countersArray.length)-1; i++){
+            this.currentNumbersArray.push(this.countersArray[i].currentNumber);
+        }
+        this.commonMax = Math.max.apply( Math, this.currentNumbersArray );
+        this.currentNumbersArray = [];
+    }
+
+    getMinFromCurrentNumbersOfCounters(){
+        for (var i=0; i <= (this.countersArray.length)-1; i++){
+            this.currentNumbersArray.push(this.countersArray[i].currentNumber);
+        }
+        this.commonMin = Math.min.apply( Math, this.currentNumbersArray );
+        this.currentNumbersArray = [];
     }
 
     getCommonMinimum(arrElement, index, array){
@@ -46,5 +84,12 @@ class StatPanel extends EventEmitter2{
 
     getCommonSummary(arrElement, index, array){
         this.commonSUM = this.commonSUM + arrElement.currentNumber;
+    }
+
+    setValues(){
+        this.$summaryValue.text(this.commonSUM);
+        this.$averageValue.text(this.commonAVG);
+        this.$minValue.text(this.commonMin);
+        this.$maxValue.text(this.commonMax);
     }
 }
