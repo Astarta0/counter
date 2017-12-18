@@ -1,4 +1,4 @@
-class StatPanel extends EventEmitter2{
+class StatPanel extends EventEmitter2 {
     constructor(countersArray){
         super();
         this.countersArray = countersArray;
@@ -20,64 +20,65 @@ class StatPanel extends EventEmitter2{
     }
 
     updateStatisticAfterCountWasChanged(){
-        this.getMaxFromCurrentNumbersOfCounters.apply(this);
-        this.getMinFromCurrentNumbersOfCounters.apply(this);
-        this.getSUMFromCurrentNumbersOfCounters.apply(this);
-        this.getAVGFromCurrentNumbersOfCounters.apply(this);
+        debugger;
+        this.getMaxFromCurrentNumbersOfCounters();
+        this.getMinFromCurrentNumbersOfCounters();
+        this.getSUMFromCurrentNumbersOfCounters();
+        this.getAVGFromCurrentNumbersOfCounters();
         this.setValues();
     }
 
     updateAllStatistic(){
-        this.countersArray.forEach(this.getCommonMinimum, this);
+        this.countersArray.forEach(() => this.getCommonMinimum());
         this.countersArray.forEach(this.getCommonMaximum, this);
         this.commonSUM = 0;
         this.countersArray.forEach(this.getCommonSummary, this);
-        this.commonAVG = parseFloat((this.commonSUM /  this.countersArray.length).toFixed());
+        this.getAVGFromCurrentNumbersOfCounters();
         this.setValues();
     }
 
     getSUMFromCurrentNumbersOfCounters(){
         this.commonSUM = 0;
-        for (var i=0; i <= (this.countersArray.length)-1; i++){
-            this.commonSUM = this.commonSUM + this.countersArray[i].currentNumber;
-        }
+        this.countersArray.forEach((counter) => {
+            this.commonSUM = this.commonSUM + counter.currentNumber;
+        });
     }
 
     getAVGFromCurrentNumbersOfCounters(){
-        for (var i=0; i <= (this.countersArray.length)-1; i++){
-            this.commonAVG = parseFloat((this.commonSUM /  this.countersArray.length).toFixed());
-        }
+       this.commonAVG = parseFloat((this.commonSUM /  this.countersArray.length).toFixed());
     }
 
     getMaxFromCurrentNumbersOfCounters(){
-        for (var i=0; i <= (this.countersArray.length)-1; i++){
-            this.currentNumbersArray.push(this.countersArray[i].currentNumber);
-        }
+        this.countersArray.forEach((counter) => {
+            this.currentNumbersArray.push(counter.currentNumber);
+        });
+
         this.commonMax = Math.max.apply( Math, this.currentNumbersArray );
         this.currentNumbersArray = [];
     }
 
     getMinFromCurrentNumbersOfCounters(){
-        for (var i=0; i <= (this.countersArray.length)-1; i++){
-            this.currentNumbersArray.push(this.countersArray[i].currentNumber);
-        }
+        this.countersArray.forEach((counter) => {
+            this.currentNumbersArray.push(counter.currentNumber);
+        });
+
         this.commonMin = Math.min.apply( Math, this.currentNumbersArray );
         this.currentNumbersArray = [];
     }
 
-    getCommonMinimum(arrElement, index, array){
+    getCommonMinimum(arrElement){
         if ((arrElement.currentNumber < this.commonMin) || this.commonMin === 0){
             this.commonMin = arrElement.currentNumber;
         }
     }
 
-    getCommonMaximum(arrElement, index, array){
+    getCommonMaximum(arrElement){
         if ((arrElement.currentNumber > this.commonMax) || this.commonMax === 0){
             this.commonMax = arrElement.currentNumber;
         }
     }
 
-    getCommonSummary(arrElement, index, array){
+    getCommonSummary(arrElement){
         this.commonSUM = this.commonSUM + arrElement.currentNumber;
     }
 

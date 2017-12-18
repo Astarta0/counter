@@ -13,7 +13,7 @@ $(function() {
 
     // handlers
     $addCounter.click(function () {
-        var counter = new Counter(min, max, millisecondsToWait, counterTemplate, controlPanel);
+        var counter = new Counter(min, max, counterTemplate, controlPanel);
         countersArray.push(counter);
         statPanel.emit("newCounterWasAdded", countersArray);
     });

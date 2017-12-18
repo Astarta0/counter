@@ -1,21 +1,19 @@
-class Counter extends EventEmitter2{
-    constructor(min, max, millisecondsToWait, counterTemplate, controlPanel) {
+class Counter extends EventEmitter2 {
+    constructor(min, max, counterTemplate, controlPanel) {
         super();
         this.min = min;
         this.max = max;
-        this.millisecondsToWait = millisecondsToWait;
-        this.pressedClass = "pressed";
         this.controlPanel = controlPanel;
 
         this.counterTemplate = counterTemplate;
-        this.currentNumber = this.getRandomInRange(this.min, this.max);
+        this.currentNumber = this.getRandomInRange();
         this.randomString = writtenNumber(this.currentNumber);
         this.renderInitialData();
 
-        this.controlPanel.on("clickResetAll", this.resetData.bind(this, controlPanel.$resetAllBtn));
-        this.controlPanel.on("clickDecrementAll", this.decrementData.bind(this, controlPanel.$decrementAllBtn));
-        this.controlPanel.on("clickIncrementAll", this.incrementData.bind(this, controlPanel.$incrementAllBtn));
-        this.controlPanel.on("clickRandomAll", this.setRandomData.bind(this, controlPanel.$randomAllBtn));
+        this.controlPanel.on("clickResetAll", this.resetData.bind(this));
+        this.controlPanel.on("clickDecrementAll", this.decrementData.bind(this));
+        this.controlPanel.on("clickIncrementAll", this.incrementData.bind(this));
+        this.controlPanel.on("clickRandomAll", this.setRandomData.bind(this));
     }
 
     //methods
@@ -64,37 +62,39 @@ class Counter extends EventEmitter2{
         });
     }
 
-    getRandomInRange(min, max) {
+    getRandomInRange() {
         return Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
     }
 
-    resetData(btn) {
+    resetData() {
         this.currentNumber = this.min;
-        this.setValue(this.currentNumber);
+        this.setValue();
         this.emit("Counter was changed");
     }
 
-    decrementData(btn){
+    decrementData(){
         if(this.currentNumber > this.min){
-            this.setValue(this.currentNumber = --this.currentNumber);
+            --this.currentNumber;
+            this.setValue();
         }
         this.emit("Counter was changed");
     }
 
-    incrementData(btn){
+    incrementData(){
         if(this.currentNumber < this.max){
-            this.setValue(this.currentNumber = ++this.currentNumber);
+            ++this.currentNumber;
+            this.setValue();
         }
         this.emit("Counter was changed");
     }
 
-    setRandomData(btn){
-        this.currentNumber = this.getRandomInRange(this.min, this.max);
-        this.setValue(this.currentNumber);
+    setRandomData(){
+        this.currentNumber = this.getRandomInRange();
+        this.setValue();
         this.emit("Counter was changed");
     }
 
-    setValue(number) {
-        this.$inputNumberArea.text(writtenNumber(number));
+    setValue() {
+        this.$inputNumberArea.text(writtenNumber(this.currentNumber));
     }
 }
