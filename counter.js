@@ -8,8 +8,8 @@ class Counter extends EventEmitter2{
         this.controlPanel = controlPanel;
 
         this.counterTemplate = counterTemplate;
-        this.randomNumber = this.getRandomInRange(this.min, this.max);
-        this.randomString = writtenNumber(this.randomNumber);
+        this.currentNumber = this.getRandomInRange(this.min, this.max);
+        this.randomString = writtenNumber(this.currentNumber);
         this.renderInitialData();
 
         this.controlPanel.on("clickResetAll", this.resetData.bind(this, controlPanel.$resetAllBtn));
@@ -41,24 +41,28 @@ class Counter extends EventEmitter2{
         //handlers definition
         this.$reset.click(function() {
             console.log("Counter: reset click");
+            this.emit("Counter was changed");
             addStyleForClickedButtons(self.$reset);
             self.resetData(self.$reset);
         });
 
         this.$dec.click(function() {
             console.log("Counter: decrement click");
+            this.emit("Counter was changed");
             addStyleForClickedButtons(self.$dec);
             self.decrementData(self.$dec);
         });
 
         this.$inc.click(function() {
             console.log("Counter: increment click");
+            this.emit("Counter was changed");
             addStyleForClickedButtons(self.$inc);
             self.incrementData(self.$inc);
         });
 
         this.$random.click(function () {
             console.log("Counter: random click");
+            this.emit("Counter was changed");
             addStyleForClickedButtons(self.$random);
             self.setRandomData(self.$random);
         });
@@ -69,25 +73,25 @@ class Counter extends EventEmitter2{
     }
 
     resetData(btn) {
-        this.randomNumber = this.min;
-        this.setValue(this.randomNumber);
+        this.currentNumber = this.min;
+        this.setValue(this.currentNumber);
     }
 
     decrementData(btn){
-        if(this.randomNumber > this.min){
-            this.setValue(--this.randomNumber);
+        if(this.currentNumber > this.min){
+            this.setValue(this.currentNumber = --this.currentNumber);
         }
     }
 
     incrementData(btn){
-        if(this.randomNumber < this.max){
-            this.setValue(++this.randomNumber);
+        if(this.currentNumber < this.max){
+            this.setValue(this.currentNumber = ++this.currentNumber);
         }
     }
 
     setRandomData(btn){
-        this.randomNumber = this.getRandomInRange(this.min, this.max);
-        this.setValue(this.randomNumber);
+        this.currentNumber = this.getRandomInRange(this.min, this.max);
+        this.setValue(this.currentNumber);
     }
 
     setValue(number) {

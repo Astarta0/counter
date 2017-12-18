@@ -7,7 +7,7 @@ $(function() {
     var countersArray = [];
 
     var controlPanel = new ControlPanel();
-    var statPanel = new StatPanel();
+    var statPanel = new StatPanel(countersArray);
     // buttons
     var $addCounter = $(".add-counter");
 
@@ -15,7 +15,7 @@ $(function() {
     $addCounter.click(function () {
         var counter = new Counter(min, max, millisecondsToWait, counterTemplate, controlPanel);
         countersArray.push(counter);
-        controlPanel.emit("newCounterWasAdded");
+        statPanel.emit("newCounterWasAdded", countersArray);
     });
 
     /**
