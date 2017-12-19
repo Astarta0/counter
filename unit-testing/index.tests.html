@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/eventemitter2@5.0.0/lib/eventemitter2.min.js"></script>
+</head>
+<body>
+    <!-- подключаем стили Mocha, для отображения результатов -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/4.0.1/mocha.min.css">
+    <!-- подключаем библиотеку Mocha -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/4.0.1/mocha.min.js"></script>
+    <!-- подключаем библиотеку Chai -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.1.2/chai.js"></script>
+    <!-- настраиваем Mocha: предстоит BDD-тестирование -->
+    <script>
+        mocha.setup('bdd');
+    </script>
+
+
+    <!-- Files to test -->
+    <script src="../counter.js"></script>
+    <!---->
+
+    <script>
+        let expect = chai.expect;
+        let assert = chai.assert;
+    </script>
+
+    <!-- Test files -->
+    <script src="./test/tests.js"></script>
+    <!---->
+
+    <!-- tests results-->
+    <div id="mocha"></div>
+
+    <script>
+        mocha.run();
+    </script>
+</body>
+</html>
