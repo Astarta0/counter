@@ -1,11 +1,10 @@
 class Counter extends EventEmitter2 {
-    constructor(min, max, counterTemplate, controlPanel) {
+    constructor(controlPanel) {
         super();
-        this.min = min;
-        this.max = max;
+        this.min = 10;
+        this.max = 50;
         this.controlPanel = controlPanel;
 
-        this.counterTemplate = counterTemplate;
         this.currentNumber = this.getRandomInRange();
         this.randomString = writtenNumber(this.currentNumber);
         this.renderInitialData();
@@ -14,6 +13,41 @@ class Counter extends EventEmitter2 {
         this.controlPanel.on("clickDecrementAll", this.decrementData.bind(this));
         this.controlPanel.on("clickIncrementAll", this.incrementData.bind(this));
         this.controlPanel.on("clickRandomAll", this.setRandomData.bind(this));
+
+        this.counterTemplate = `
+        <div class="counter-wrapper">
+            <div class="view">
+                <div class="min-wrapper">
+                    <div class="container">
+                        <div class="title">MIN</div>
+                        <div class="min-value"></div>
+                    </div>
+                </div>
+                <div class="value-wrapper">
+                    <div class="input-value"></div>
+                </div>
+                <div class="max-wrapper">
+                        <div class="container">
+                            <div class="title">MAX</div>
+                            <div class="max-value"></div>
+                        </div>
+                </div>
+            </div>
+            <div class="management-panel">
+                <div class="reset btn-wrp">
+                    <div class="button">RESET</div>
+                </div>
+                <div class="dec btn-wrp">
+                    <div class="button">DEC</div>
+                </div>
+                <div class="inc btn-wrp">
+                    <div class="button">INC</div>
+                </div>
+                <div class="random btn-wrp">
+                    <div class="button">RANDOM</div>
+                </div>
+            </div>
+        </div>`;
     }
 
     //methods

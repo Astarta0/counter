@@ -3,7 +3,6 @@ class StatPanel extends EventEmitter2 {
         super();
         this.countersArray = countersArray;
         this.currentNumbersArray = [];
-        this.on("newCounterWasAdded", this.addCountersHandler);
         this.$summaryValue = $(".summary-stat-value");
         this.$averageValue = $(".average-stat-value");
         this.$minValue = $(".min-stat-value");
