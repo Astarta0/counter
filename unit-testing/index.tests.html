@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.jsdelivr.net/npm/eventemitter2@5.0.0/lib/eventemitter2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/yamadapc/js-written-number/08336d9c/dist/written-number.js"></script>
 </head>
 <body>
     <!-- подключаем стили Mocha, для отображения результатов -->
@@ -19,6 +21,9 @@
 
     <!-- Files to test -->
     <script src="../counter.js"></script>
+    <script src="../controlPanel.js"></script>
+    <script src="../statPanel.js"></script>
+    <script src="../main.js"></script>
     <!---->
 
     <script>
@@ -27,7 +32,8 @@
     </script>
 
     <!-- Test files -->
-    <script src="./test/tests.js"></script>
+    <script src="./test/tests_for_counter.js"></script>
+    <script src="./test/tests_for_controlPanel.js"></script>
     <!---->
 
     <!-- tests results-->
