@@ -5,15 +5,6 @@ class Counter extends EventEmitter2 {
         this.max = 50;
         this.controlPanel = controlPanel;
 
-        this.currentNumber = this.getRandomInRange();
-        this.randomString = writtenNumber(this.currentNumber);
-        this.renderInitialData();
-
-        this.controlPanel.on("clickResetAll", this.resetData.bind(this));
-        this.controlPanel.on("clickDecrementAll", this.decrementData.bind(this));
-        this.controlPanel.on("clickIncrementAll", this.incrementData.bind(this));
-        this.controlPanel.on("clickRandomAll", this.setRandomData.bind(this));
-
         this.counterTemplate = `
         <div class="counter-wrapper">
             <div class="view">
@@ -48,6 +39,16 @@ class Counter extends EventEmitter2 {
                 </div>
             </div>
         </div>`;
+
+        this.currentNumber = this.getRandomInRange();
+        this.randomString = writtenNumber(this.currentNumber);
+        this.renderInitialData();
+
+        this.controlPanel.on("clickResetAll", this.resetData.bind(this));
+        this.controlPanel.on("clickDecrementAll", this.decrementData.bind(this));
+        this.controlPanel.on("clickIncrementAll", this.incrementData.bind(this));
+        this.controlPanel.on("clickRandomAll", this.setRandomData.bind(this));
+
     }
 
     //methods
