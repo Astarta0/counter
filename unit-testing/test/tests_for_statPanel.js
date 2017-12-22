@@ -1,5 +1,4 @@
 describe('STAT PANEL', function () {
-    this.timeout(99999999);
 
     var controlPanel = new ControlPanel();
 
