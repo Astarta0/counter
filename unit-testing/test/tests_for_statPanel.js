@@ -126,17 +126,16 @@ describe('STAT PANEL', function () {
             let counter = new Counter(controlPanel);
             this.countersArray.push(counter);
         }
-        this.countersArray[0].counter.currentNumber = 20;
-        this.countersArray[1].counter.currentNumber = 30;
-        this.countersArray[2].counter.currentNumber = 46;
-        console.log(this.statPanel);
+        this.countersArray[0].currentNumber = 20;
+        this.countersArray[1].currentNumber = 30;
+        this.countersArray[2].currentNumber = 46;
 
         //act1
         this.statPanel.addCountersHandler();
         //assert1
         assert.equal(this.statPanel.commonMin, 20, "Incorrect common min after adding counters!");
         assert.equal(this.statPanel.commonMax, 46, "Incorrect common max after adding counters!");
-        assert.equal(this.statPanel.commonSUM, 86, "Incorrect common summary after adding counters!");
+        assert.equal(this.statPanel.commonSUM, 96, "Incorrect common summary after adding counters!");
         assert.equal(this.statPanel.commonAVG, 32, "Incorrect common average after adding counters!");
 
         //act2:change counters values
@@ -146,7 +145,7 @@ describe('STAT PANEL', function () {
         //assert2
         assert.equal(this.statPanel.commonMin, 10, "Incorrect common min after counters changed values!");
         assert.equal(this.statPanel.commonMax, 47, "Incorrect common max after counters changed values!");
-        assert.equal(this.statPanel.commonSUM, 96, "Incorrect common summary after counters changed values!");
-        assert.equal(this.statPanel.commonAVG, 28, "Incorrect common average after counters changed values");
+        assert.equal(this.statPanel.commonSUM, 86, "Incorrect common summary after counters changed values!");
+        assert.equal(this.statPanel.commonAVG, 29, "Incorrect common average after counters changed values");
     });
 });
