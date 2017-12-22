@@ -20,13 +20,13 @@ describe('STAT PANEL', function () {
         this.statPanel.updateAllStatistic();
         //assert
         //commonMin==0
-        assert.equal(this.statPanel.commonMin, counter.currentNumber, "");
-        assert.equal(this.statPanel.commonMax, counter.currentNumber, "");
-        assert.equal(this.statPanel.commonSUM, counter.currentNumber, "");
-        assert.equal(this.statPanel.commonAVG, counter.currentNumber, "");
+        assert.equal(this.statPanel.commonMin, counter.currentNumber, "Incorrect common min value");
+        assert.equal(this.statPanel.commonMax, counter.currentNumber, "Incorrect common max value");
+        assert.equal(this.statPanel.commonSUM, counter.currentNumber, "Incorrect common sum value");
+        assert.equal(this.statPanel.commonAVG, counter.currentNumber, "Incorrect common avg value");
     });
 
-    it('can update statistic if several counters was added', function (){
+    it('can update statistic if several counters were added', function (){
         //arrange
         for (let i=0; i<3; i++){
             let counter = new Counter(controlPanel);
