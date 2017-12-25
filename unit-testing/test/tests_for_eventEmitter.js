@@ -18,7 +18,6 @@ describe('EVENT EMITTER', function () {
         eventEmitter.on("event1", handler1);
         eventEmitter.on("event1", handler2);
 
-
         eventEmitter.emit("event1");
 
         function handler1(){
@@ -33,6 +32,7 @@ describe('EVENT EMITTER', function () {
 
     it("remove listener", function(done) {
         let eventEmitter = new EventEmitter2();
+        let deletedHandlerCalled = false;
 
         eventEmitter.on("event1", handler1);
         eventEmitter.on("event1", handler2);
@@ -40,9 +40,11 @@ describe('EVENT EMITTER', function () {
         eventEmitter.removeListener("event1", handler1);
 
         eventEmitter.emit("event1");
+        assert.equal(deletedHandlerCalled, false, "Deleted handler was called!");
 
         function handler1(){
             console.log("handler1");
+            deletedHandlerCalled = true;
         }
 
         function handler2(){

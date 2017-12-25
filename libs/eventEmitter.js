@@ -1,39 +1,38 @@
 class EventEmitter2 {
     constructor(){
-        this.eventsArray = [];
-        this.argumentsArray = [];
-
+        this.eventsHandlers = {};
     }
 
     // methods
     on(eventName, func){
-        this.eventsArray.push(
-            {[eventName]: func}
-        );
+        if (Array.isArray(this.eventsHandlers[eventName])) {
+            this.eventsHandlers[eventName].push(func);
+        } else {
+            this.eventsHandlers[eventName] = [func];
+        }
     }
 
     emit(eventName){
+        let argumentsArray = [];
+        // TODO: привести к массиву, shift и тд
         for (var i = 1; i < arguments.length; i++) {
-            this.argumentsArray.push(arguments[i]);
+            argumentsArray.push(arguments[i]);
         }
-        console.log(this.argumentsArray);
-        this.eventsArray.forEach((eventObj) => {
-            if (eventName in eventObj){
-                (eventObj[eventName]).apply(null, this.argumentsArray);
-            }
-        });
-        this.argumentsArray = [];
+        if(Array.isArray(this.eventsHandlers[eventName])){
+            this.eventsHandlers[eventName].forEach((handler) => {
+                handler.apply(null, argumentsArray);
+            });
+        }
     }
 
     removeListener(eventName, func){
-        this.eventsArray.forEach((eventObj, position) => {
-            if (eventName in eventObj){
-                if (eventObj[eventName] === func){
-                    this.eventsArray.splice(position, 1);
-                    console.log(this.eventsArray);
+        if(Array.isArray(this.eventsHandlers[eventName])){
+            this.eventsHandlers[eventName].forEach((handler, position, arr ) => {
+                if (func === handler) {
+                    arr.splice(position, 1);
                 }
-            }
-        });
+            });
+        }
     }
 
 }
