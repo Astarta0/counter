@@ -40,15 +40,8 @@ $(function() {
     function sortAllCounters() {
         debugger;
         console.log(countersArray);
-        countersArray.sort(function (a.currentNumber, b.currentNumber) {
-            if (a.currentNumber < b.currentNumber) {
-                return -1;
-            }
-            if (a.currentNumber < b.currentNumber) {
-                return 1;
-            }
-
-            return 0;
+        countersArray.sort(function (a, b) {
+             return a.currentNumber - b.currentNumber;
         });
         console.log(countersArray);
     }
