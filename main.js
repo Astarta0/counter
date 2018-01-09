@@ -17,13 +17,42 @@ $(function() {
     var statPanel = new StatPanel(countersArray);
     // buttons
     var $addCounter = $(".add-counter");
+    var $sortCounters = $(".sort-counters");
+
+    var self = this;
 
     // handlers
-    $addCounter.click(function () {
+    $sortCounters.click(function () {
+        console.log(countersArray);
+        sortAllCounters();
+    });
+
+    $addCounter.click(function() {
         var counter = new Counter(controlPanel);
         countersArray.push(counter);
+        if (countersArray.length > 0){
+            $sortCounters.removeClass("btn-is-disabled");
+        }
         statPanel.addCountersHandler();
     });
+
+
+    function sortAllCounters() {
+        debugger;
+        console.log(countersArray);
+        countersArray.sort(function (a.currentNumber, b.currentNumber) {
+            if (a.currentNumber < b.currentNumber) {
+                return -1;
+            }
+            if (a.currentNumber < b.currentNumber) {
+                return 1;
+            }
+
+            return 0;
+        });
+        console.log(countersArray);
+    }
+
 });
 
 

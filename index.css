@@ -80,13 +80,17 @@ body {
     width: 368px;
     padding: 12px 0;
 }
-.add-counter{
+.add-counter, .sort-counters{
     padding: 2px 4px;
     height: 36px;
     line-height: 36px;
     display: inline-block;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 4px;
+}
+.btn-is-disabled{
+    pointer-events: none;
+    opacity: 0.7;
 }
 
 .counters-container{
