@@ -1,6 +1,7 @@
 class Counter extends EventEmitter2 {
     constructor(controlPanel, indexOfCounters) {
         super();
+        this.counterName = "";
         this.counterNumber = indexOfCounters;
         this.min = 10;
         this.max = 50;
@@ -9,6 +10,9 @@ class Counter extends EventEmitter2 {
         this.counterTemplate = `
         <div class="counter">
             <div class="counter-wrapper">
+                <div class="name-area"> 
+                    <input class="counter-name-input" type="text" placeholder="Enter counters name...">
+                </div>
                 <div class="view">
                     <div class="min-wrapper">
                         <div class="container">
@@ -53,7 +57,6 @@ class Counter extends EventEmitter2 {
         this.controlPanel.on("clickDecrementAll", this.decrementData.bind(this));
         this.controlPanel.on("clickIncrementAll", this.incrementData.bind(this));
         this.controlPanel.on("clickRandomAll", this.setRandomData.bind(this));
-
     }
 
     //methods
@@ -65,6 +68,10 @@ class Counter extends EventEmitter2 {
         this.$inputCountersArea = $(".counters-container");
         this.counter = $(this.counterTemplate);
         this.$inputCountersArea.append(this.counter);
+        if (this.counterName !== ""){
+            this.$nameInput.val( this.counterName);
+        }
+
 
         this.$inputNumberArea = this.counter.find(".input-value");
         this.$inputMinArea = this.counter.find(".min-value");
@@ -80,6 +87,8 @@ class Counter extends EventEmitter2 {
         this.$random = this.counter.find( ".random" );
 
         this.$deleteCounter = this.counter.find(".delete-counter");
+
+        this.$nameInput = this.counter.find(".counter-name-input");
 
         const self = this;
         //handlers definition
@@ -110,6 +119,13 @@ class Counter extends EventEmitter2 {
         this.$deleteCounter.click(function() {
             console.log("Counter: delete click");
             self.deleteCounter(this.counterNumber);
+        });
+
+        this.$nameInput.keypress((event) => {
+            if (event.which === 13) {
+                console.log(`я туть`);
+                this.counterName = this.$nameInput.val();
+            }
         });
     }
 
