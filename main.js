@@ -12,23 +12,24 @@ function addStyleForClickedButtons(queryLocator) {
 
 $(function() {
     var countersArray = [];
+    var indexOfCounters = 0;
 
     var controlPanel = new ControlPanel();
     var statPanel = new StatPanel(countersArray);
     // buttons
     var $addCounter = $(".add-counter");
     var $sortCounters = $(".sort-counters");
-
-    var self = this;
+    var $inputCountersArea = $(".counters-container");
 
     // handlers
     $sortCounters.click(function () {
-        console.log(countersArray);
         sortAllCounters();
+        renderingSortedCounters();
     });
 
     $addCounter.click(function() {
-        var counter = new Counter(controlPanel);
+        indexOfCounters++;
+        var counter = new Counter(controlPanel, indexOfCounters);
         countersArray.push(counter);
         if (countersArray.length > 0){
             $sortCounters.removeClass("btn-is-disabled");
@@ -36,16 +37,19 @@ $(function() {
         statPanel.addCountersHandler();
     });
 
-
     function sortAllCounters() {
-        debugger;
-        console.log(countersArray);
         countersArray.sort(function (a, b) {
              return a.currentNumber - b.currentNumber;
         });
-        console.log(countersArray);
     }
 
+    function renderingSortedCounters() {
+        $inputCountersArea.children().detach();
+        countersArray.forEach((counter) => {
+            counter.getRandomString();
+            counter.renderInitialData();
+        });
+    }
 });
 
 

@@ -1,47 +1,52 @@
 class Counter extends EventEmitter2 {
-    constructor(controlPanel) {
+    constructor(controlPanel, indexOfCounters) {
         super();
+        this.counterNumber = indexOfCounters;
         this.min = 10;
         this.max = 50;
         this.controlPanel = controlPanel;
 
         this.counterTemplate = `
-        <div class="counter-wrapper">
-            <div class="view">
-                <div class="min-wrapper">
-                    <div class="container">
-                        <div class="title">MIN</div>
-                        <div class="min-value"></div>
+        <div class="counter">
+            <div class="counter-wrapper">
+                <div class="view">
+                    <div class="min-wrapper">
+                        <div class="container">
+                            <div class="title">MIN</div>
+                            <div class="min-value"></div>
+                        </div>
+                    </div>
+                    <div class="value-wrapper">
+                        <div class="input-value"></div>
+                    </div>
+                    <div class="max-wrapper">
+                            <div class="container">
+                                <div class="title">MAX</div>
+                                <div class="max-value"></div>
+                            </div>
                     </div>
                 </div>
-                <div class="value-wrapper">
-                    <div class="input-value"></div>
-                </div>
-                <div class="max-wrapper">
-                        <div class="container">
-                            <div class="title">MAX</div>
-                            <div class="max-value"></div>
-                        </div>
-                </div>
-            </div>
-            <div class="management-panel">
-                <div class="reset btn-wrp">
-                    <div class="button">RESET</div>
-                </div>
-                <div class="dec btn-wrp">
-                    <div class="button">DEC</div>
-                </div>
-                <div class="inc btn-wrp">
-                    <div class="button">INC</div>
-                </div>
-                <div class="random btn-wrp">
-                    <div class="button">RANDOM</div>
+                <div class="management-panel">
+                    <div class="reset btn-wrp">
+                        <div class="button">RESET</div>
+                    </div>
+                    <div class="dec btn-wrp">
+                        <div class="button">DEC</div>
+                    </div>
+                    <div class="inc btn-wrp">
+                        <div class="button">INC</div>
+                    </div>
+                    <div class="random btn-wrp">
+                        <div class="button">RANDOM</div>
+                    </div>
                 </div>
             </div>
+            <div class="delete-counter">&#128939;</div>
         </div>`;
 
         this.currentNumber = this.getRandomInRange();
-        this.randomString = writtenNumber(this.currentNumber);
+        this.getRandomString();
+
         this.renderInitialData();
 
         this.controlPanel.on("clickResetAll", this.resetData.bind(this));
@@ -52,6 +57,10 @@ class Counter extends EventEmitter2 {
     }
 
     //methods
+    getRandomString(){
+        this.randomString = writtenNumber(this.currentNumber);
+    }
+
     renderInitialData() {
         this.$inputCountersArea = $(".counters-container");
         this.counter = $(this.counterTemplate);
@@ -69,6 +78,8 @@ class Counter extends EventEmitter2 {
         this.$dec = this.counter.find( ".dec" );
         this.$inc = this.counter.find( ".inc" );
         this.$random = this.counter.find( ".random" );
+
+        this.$deleteCounter = this.counter.find(".delete-counter");
 
         const self = this;
         //handlers definition
@@ -90,15 +101,24 @@ class Counter extends EventEmitter2 {
             self.incrementData(self.$inc);
         });
 
-        this.$random.click(function () {
+        this.$random.click(function() {
             console.log("Counter: random click");
             addStyleForClickedButtons(self.$random);
             self.setRandomData(self.$random);
+        });
+
+        this.$deleteCounter.click(function() {
+            console.log("Counter: delete click");
+            self.deleteCounter(this.counterNumber);
         });
     }
 
     getRandomInRange() {
         return Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+    }
+    deleteCounter(){
+        this.counter.remove();
+        this.emit("Counter was deleted", this.counterNumber);
     }
 
     resetData() {
@@ -130,6 +150,7 @@ class Counter extends EventEmitter2 {
     }
 
     setValue() {
-        this.$inputNumberArea.text(writtenNumber(this.currentNumber));
+        this.getRandomString();
+        this.$inputNumberArea.text(this.randomString);
     }
 }

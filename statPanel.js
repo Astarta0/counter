@@ -15,6 +15,17 @@ class StatPanel extends EventEmitter2 {
 
     addCountersHandler(){
         this.countersArray[this.countersArray.length-1].on("Counter was changed", this.updateStatisticAfterCountWasChanged.bind(this));
+        this.countersArray[this.countersArray.length-1].on("Counter was deleted", this.updateStatisticAfterCountWasDeleted.bind(this));
+        this.updateAllStatistic();
+    }
+
+    updateStatisticAfterCountWasDeleted(counterNumber){
+        var indx= this.countersArray.findIndex((counter) => {
+            if (counter.counterNumber == counterNumber) {
+                return true;
+            }
+        });
+        this.countersArray.splice(indx, 1);
         this.updateAllStatistic();
     }
 
@@ -27,11 +38,16 @@ class StatPanel extends EventEmitter2 {
     }
 
     updateAllStatistic(){
-        this.countersArray.forEach((counter) => this.getCommonMinimum(counter));
-        this.countersArray.forEach(this.getCommonMaximum, this);
+        this.commonMin = 0;
         this.commonSUM = 0;
-        this.countersArray.forEach(this.getCommonSummary, this);
-        this.getAVGFromCurrentNumbersOfCounters();
+        this.commonAVG = 0;
+        this.commonMax = 0;
+        if (this.countersArray.length > 0) {
+            this.countersArray.forEach((counter) => this.getCommonMinimum(counter));
+            this.countersArray.forEach(this.getCommonMaximum, this);
+            this.countersArray.forEach(this.getCommonSummary, this);
+            this.getAVGFromCurrentNumbersOfCounters();
+        }
         this.setValues();
     }
 
@@ -43,7 +59,11 @@ class StatPanel extends EventEmitter2 {
     }
 
     getAVGFromCurrentNumbersOfCounters(){
-       this.commonAVG = parseFloat((this.commonSUM /  this.countersArray.length).toFixed());
+        if (this.countersArray.length > 0) {
+            this.commonAVG = parseFloat((this.commonSUM /  this.countersArray.length).toFixed());
+       } else {
+            this.commonAVG = 0;
+       }
     }
 
     getMaxFromCurrentNumbersOfCounters(){

@@ -11,6 +11,24 @@ body {
     /*margin: 0;*/
 }
 
+.counter{
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 140px;
+    width: 400px;
+}
+.delete-counter{
+    display: inline-block;
+    height: 140px;
+    width: 24px;
+    border: none;
+    opacity: .5;
+    color: darkred;
+}
+
 .counter-wrapper{
     display: flex;
     flex-direction: column;
@@ -19,7 +37,6 @@ body {
     height: 134px;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 4px;
-    margin-bottom: 10px;
     flex-shrink: 0;
 }
 .view{
@@ -96,7 +113,7 @@ body {
 .counters-container{
     display: flex;
     flex-direction: column;
-
+    margin-top: 10px;
 }
 
 .main-control-panel{
