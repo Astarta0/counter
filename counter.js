@@ -68,7 +68,9 @@ class Counter extends EventEmitter2 {
         this.$inputCountersArea = $(".counters-container");
         this.counter = $(this.counterTemplate);
         this.$inputCountersArea.append(this.counter);
+        this.$nameInput = this.counter.find(".counter-name-input");
         if (this.counterName !== ""){
+            debugger;
             this.$nameInput.val( this.counterName);
         }
 
@@ -88,7 +90,7 @@ class Counter extends EventEmitter2 {
 
         this.$deleteCounter = this.counter.find(".delete-counter");
 
-        this.$nameInput = this.counter.find(".counter-name-input");
+
 
         const self = this;
         //handlers definition

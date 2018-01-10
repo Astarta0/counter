@@ -30,6 +30,7 @@ body {
     border: none;
     opacity: .5;
     color: darkred;
+    cursor: pointer;
 }
 
 .counter-wrapper{
