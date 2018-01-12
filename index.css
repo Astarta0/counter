@@ -43,6 +43,7 @@ body {
     border-radius: 4px;
     flex-shrink: 0;
 }
+
 .name-area{
     display: flex;
     flex-direction: column;
@@ -52,14 +53,29 @@ body {
     height: 36px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
+
 input[type="text"]{
     font-family: 'Gochi Hand', cursive;
     text-align: center;
-    border: 0;
     width: 300px;
     height: 28px;
     font-size: 22px;
+    border: none;
 }
+
+input[type="text"]:focus{
+    border: none;
+    outline: none;
+}
+
+input.min-value, input.max-value{
+    display: block;
+    overflow: hidden;
+    width: 26px;
+    height: 20px;
+    border: none;
+}
+
 .view{
     height: 97px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -77,6 +93,7 @@ input[type="text"]{
     align-items: center;
     width: 95px;
 }
+
 .title{
     color: green;
 }
@@ -96,8 +113,8 @@ input[type="text"]{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
 }
+
 .btn-wrp + .btn-wrp{
     border-left: 1px solid rgba(0, 0, 0, 0.12);
 }

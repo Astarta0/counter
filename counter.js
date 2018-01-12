@@ -71,7 +71,7 @@ class Counter extends EventEmitter2 {
         this.$nameInput = this.counter.find(".counter-name-input");
         if (this.counterName !== ""){
             debugger;
-            this.$nameInput.val( this.counterName);
+            this.$nameInput.val(this.counterName);
         }
 
 
@@ -89,8 +89,11 @@ class Counter extends EventEmitter2 {
         this.$random = this.counter.find( ".random" );
 
         this.$deleteCounter = this.counter.find(".delete-counter");
+        console.log(this.$deleteCounter);
 
-
+        this.$minValue = this.counter.find(".min-value");
+        console.log(this.$minValue);
+        this.$maxValue = this.counter.find(".max-value");
 
         const self = this;
         //handlers definition
@@ -125,9 +128,29 @@ class Counter extends EventEmitter2 {
 
         this.$nameInput.keypress((event) => {
             if (event.which === 13) {
-                console.log(`я туть`);
                 this.counterName = this.$nameInput.val();
+                var domElement = this.$nameInput.get(0);
+                console.log(domElement);
+                domElement.blur();
             }
+        });
+
+        this.$minValue.click(function () {
+            console.log(`я туть`);
+            var oldElement = $(this).replaceWith("<input class=\"min-value\" maxlength=\"3\" autofocus></input>");
+            console.log(oldElement);
+
+            $(".min-value").keypress(function(event) {
+                if (event.which === 13) {
+                    debugger;
+                    self.min = $(this).val();
+                    var domElement = $(this).get(0);
+                    console.log(domElement);
+                    domElement.blur();
+
+                }
+            });
+
         });
     }
 
