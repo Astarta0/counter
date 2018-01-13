@@ -74,7 +74,6 @@ class Counter extends EventEmitter2 {
             this.$nameInput.val(this.counterName);
         }
 
-
         this.$inputNumberArea = this.counter.find(".input-value");
         this.$inputMinArea = this.counter.find(".min-value");
         this.$inputMaxArea = this.counter.find(".max-value");
@@ -89,11 +88,6 @@ class Counter extends EventEmitter2 {
         this.$random = this.counter.find( ".random" );
 
         this.$deleteCounter = this.counter.find(".delete-counter");
-        console.log(this.$deleteCounter);
-
-        this.$minValue = this.counter.find(".min-value");
-        console.log(this.$minValue);
-        this.$maxValue = this.counter.find(".max-value");
 
         const self = this;
         //handlers definition
@@ -135,23 +129,91 @@ class Counter extends EventEmitter2 {
             }
         });
 
-        this.$minValue.click(function () {
+        // делегирование
+        this.counter.click(function(event) {
             console.log(`я туть`);
-            var oldElement = $(this).replaceWith("<input class=\"min-value\" maxlength=\"3\" autofocus></input>");
-            console.log(oldElement);
-
-            $(".min-value").keypress(function(event) {
-                if (event.which === 13) {
-                    debugger;
-                    self.min = $(this).val();
-                    var domElement = $(this).get(0);
-                    console.log(domElement);
-                    domElement.blur();
-
-                }
-            });
-
+            console.log(this);
+            var target = event.target;
+            // клик на div - меняем на input
+            if (target.className == "min-value") {
+                self.changeDivToinput("min-value-input", target, self.min);
+            }
+            if (target.className == "max-value") {
+                self.changeDivToinput("max-value-input", target, self.max);
+            }
         });
+
+        // снятие фокуса
+        this.counter.focusout(function(event) {
+            var target = event.target;
+            if (!(target.classList.contains("min-value-input") || target.classList.contains("max-value-input"))) return;
+            if (target.classList.contains("min-value-input")) {
+                self.min = self.saveValueAndReplaceInput("min-value-input", target, "min-value", self.min);
+                self.correctCurrentValueAccordingNewMinMax();
+            }
+            if (target.classList.contains("max-value-input")) {
+                self.max = self.saveValueAndReplaceInput("max-value-input", target, "max-value", self.max);
+                self.correctCurrentValueAccordingNewMinMax();
+            }
+        });
+
+        // enter
+        this.counter.keypress(function(event) {
+            var target = event.target;
+            if (!(target.classList.contains("min-value-input") || target.classList.contains("max-value-input"))) return;
+            if (event.which === 13) target.blur();
+        });
+    }
+
+    changeDivToinput(inputClass, target, prevValue){
+        const $newInput = $(`<input class="${inputClass}" maxlength="3"></input>`);
+        $(target).replaceWith($newInput);
+        $newInput.val(prevValue);
+        $newInput.select();
+        $newInput.focus();
+    }
+    saveValueAndReplaceInput(inputClass, target, divClass, countersVariableForValue){
+        var $Input = this.counter.find("." + inputClass);
+        if ($Input.val() == "")
+        {
+            target.blur();
+            $Input.replaceWith(`<div class="${divClass}"></div>`);
+            this.counter.find("." + divClass).text(countersVariableForValue);
+            return;
+        }
+        countersVariableForValue = +$Input.val();
+        this.validateInputValue(countersVariableForValue, inputClass);
+        target.blur();
+        $Input.replaceWith(`<div class="${divClass}"></div>`);
+        this.counter.find("." + divClass).text(countersVariableForValue);
+        return countersVariableForValue;
+    }
+    validateInputValue(countersVariableForValue, inputClass){
+        // вводили min
+        if (inputClass == "min-value-input") {
+            if (countersVariableForValue > this.max) {
+                // error
+            }
+        }
+        // вводили max
+        if (inputClass == "max-value-input") {
+            if (countersVariableForValue < this.min) {
+                // error
+            }
+        }
+
+    }
+    correctCurrentValueAccordingNewMinMax(){
+        if(this.currentNumber < this.min){
+            this.currentNumber = this.min;
+            this.setValue();
+            this.emit("Counter was changed");
+        }
+        if(this.currentNumber > this.max){
+            this.currentNumber = this.max;
+            this.setValue();
+            this.emit("Counter was changed");
+        }
     }
 
     getRandomInRange() {

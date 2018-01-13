@@ -68,7 +68,7 @@ input[type="text"]:focus{
     outline: none;
 }
 
-input.min-value, input.max-value{
+input.min-value-input, input.max-value-input{
     display: block;
     overflow: hidden;
     width: 26px;
