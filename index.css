@@ -75,6 +75,11 @@ input.min-value-input, input.max-value-input{
     height: 20px;
     border: none;
 }
+input.min-value-input.invalid, input.max-value-input.invalid{
+    outline: 0px;
+    border: 2px solid rgba(255, 42, 112, 0.5);
+    border-radius: 3px;
+}
 
 .view{
     height: 97px;

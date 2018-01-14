@@ -129,7 +129,6 @@ class Counter extends EventEmitter2 {
             }
         });
 
-        // делегирование
         this.counter.click(function(event) {
             console.log(`я туть`);
             console.log(this);
@@ -143,7 +142,6 @@ class Counter extends EventEmitter2 {
             }
         });
 
-        // снятие фокуса
         this.counter.focusout(function(event) {
             var target = event.target;
             if (!(target.classList.contains("min-value-input") || target.classList.contains("max-value-input"))) return;
@@ -157,9 +155,9 @@ class Counter extends EventEmitter2 {
             }
         });
 
-        // enter
         this.counter.keypress(function(event) {
             var target = event.target;
+            $(target).removeClass("invalid");
             if (!(target.classList.contains("min-value-input") || target.classList.contains("max-value-input"))) return;
             if (event.which === 13) target.blur();
         });
@@ -172,6 +170,7 @@ class Counter extends EventEmitter2 {
         $newInput.select();
         $newInput.focus();
     }
+
     saveValueAndReplaceInput(inputClass, target, divClass, countersVariableForValue){
         var $Input = this.counter.find("." + inputClass);
         if ($Input.val() == "")
@@ -181,28 +180,40 @@ class Counter extends EventEmitter2 {
             this.counter.find("." + divClass).text(countersVariableForValue);
             return;
         }
+        var oldValue = countersVariableForValue;
         countersVariableForValue = +$Input.val();
-        this.validateInputValue(countersVariableForValue, inputClass);
-        target.blur();
-        $Input.replaceWith(`<div class="${divClass}"></div>`);
-        this.counter.find("." + divClass).text(countersVariableForValue);
-        return countersVariableForValue;
+        var validity = this.validateInputValue(countersVariableForValue, inputClass, $Input);
+        if (validity) {
+            target.blur();
+            $Input.replaceWith(`<div class="${divClass}"></div>`);
+            this.counter.find("." + divClass).text(countersVariableForValue);
+            return countersVariableForValue;
+        } else {
+            $Input.focus();
+            return oldValue;
+        }
     }
-    validateInputValue(countersVariableForValue, inputClass){
+
+    validateInputValue(countersVariableForValue, inputClass, $Input){
+        var InputDomElement = $Input.get(0);
         // вводили min
         if (inputClass == "min-value-input") {
             if (countersVariableForValue > this.max) {
-                // error
+                $Input.addClass("invalid");
+                // InputDomElement.setCustomValidity("Your number is more than the max!");
+                return false;
             }
         }
         // вводили max
         if (inputClass == "max-value-input") {
             if (countersVariableForValue < this.min) {
-                // error
+                $Input.addClass("invalid");
+                return false;
             }
         }
-
+        return true;
     }
+
     correctCurrentValueAccordingNewMinMax(){
         if(this.currentNumber < this.min){
             this.currentNumber = this.min;
@@ -219,6 +230,7 @@ class Counter extends EventEmitter2 {
     getRandomInRange() {
         return Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
     }
+
     deleteCounter(){
         this.counter.remove();
         this.emit("Counter was deleted", this.counterNumber);
